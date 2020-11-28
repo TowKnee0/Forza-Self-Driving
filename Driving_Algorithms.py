@@ -2,7 +2,11 @@ import time
 import pyautogui
 import math
 
+
 def point_to_line_dist(point, line):
+    """Calculate straight-line distance between a point and a line defined by two other
+    points.
+    """
     a = point[0] - line[0]
     b = point[1] - line[1]
     c = line[2] - line[0]
@@ -28,6 +32,7 @@ def point_to_line_dist(point, line):
     dx = point[0] - xx
     dy = point[1] - yy
     return math.sqrt(dx * dx + dy * dy)
+
 
 def drive_lane_intersect(lanes, screen_width):
     """This algorithm is an attempt to drive the car based on predetermined instructions.

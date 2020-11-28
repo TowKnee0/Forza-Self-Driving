@@ -4,6 +4,7 @@ from PIL import ImageGrab
 import Algorithms
 import Driving_Algorithms
 
+
 def mask_region(screen, vertices):
     """Returns region of interest based on given vertices.
 
