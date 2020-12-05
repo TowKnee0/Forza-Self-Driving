@@ -1,9 +1,6 @@
 import cv2
 import numpy as np
-import driving_algorithms
-import screen_grab
-import time
-import process_image
+import algorithms
 
 
 def mask_region(screen, vertices):
@@ -29,17 +26,12 @@ def lane_lines(screen):
     Note: screen should be at least edge detection processed. Better if screen is passed
           after region of interest is applied to edge detection.
     """
-    lines_mess = cv2.HoughLinesP(screen, rho=1, theta=np.pi/180, threshold=180, minLineLength=60, maxLineGap=1)
+    lines_mess = cv2.HoughLinesP(screen, rho=1, theta=np.pi / 180, threshold=180, minLineLength=60, maxLineGap=1)
 
     # Note: lines is in the form [[[here]], [[here]]...]
 
     if lines_mess is not None:
-        #
-        # for line in lines_mess:
-        #     line = line[0]
-        #     cv2.line(screen, (line[0], line[1]), (line[2], line[3]), (255, 0, 0), 1)
-
-        sorter = Algorithms.HoughCluster()
+        sorter = algorithms.HoughCluster()
         lines = sorter.process_lines(lines_mess, screen)
         # temp = lines
         temp = {}
@@ -62,25 +54,18 @@ def lane_lines(screen):
             return [temp[key] for key in temp]
 
 
-pressed = False
-last_time = time.time()
-while True:
-    # store raw pixel data into np array
-    screen = np.array(screen_grab.grab_screen(region=(0, 100, 950, 800)))
+def process_image(screen):
+    """ Takes in the screenshot, applies edge detection and mask and blur
+    then returns the new screen.
+    """
+    gray_screen = cv2.cvtColor(screen, cv2.COLOR_BGR2GRAY)
+    edges = cv2.Canny(gray_screen, threshold1=200, threshold2=350)
 
-    processed = process_image.process_image(screen)
-    lanes = process_image.lane_lines(processed)
+    vertices = np.array(
+        [[10, 450], [400, 375], [650, 375], [950, 450], [950, 700], [600, 700], [550, 450], [400, 450], [300, 700],
+         [10, 700]], dtype=np.int32)
 
-    if lanes is not None:
-        pressed = driving_algorithms.drive_max_dist(lanes, (950, 800), pressed)
+    masked = mask_region(edges, [vertices])
+    blur = cv2.GaussianBlur(masked, (3, 3), 0)
 
-    #     for line in lanes:
-    #         cv2.line(processed, (line[0], line[1]), (line[2], line[3]), (255, 0, 0), 5)
-    # cv2.imshow('test', processed)
-
-    print(f'Loop took {time.time() - last_time} seconds')
-    last_time = time.time()
-
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        cv2.destroyAllWindows()
-        break
+    return blur

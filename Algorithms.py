@@ -1,6 +1,7 @@
 import math
 import numpy as np
 
+
 class HoughCluster:
     """Clasterize and merge each cluster of cv2.HoughLinesP() output
 
@@ -13,7 +14,8 @@ class HoughCluster:
 
     def get_orientation(self, line):
         # Get orientation of a line, using its length https://en.wikipedia.org/wiki/Atan2
-        orientation = math.atan2(abs((line[0] - line[2])), abs((line[1] - line[3])))
+        # orientation = math.atan2(abs((line[0] - line[2])), abs((line[1] - line[3])))
+        orientation = math.atan2((line[0] - line[2]), (line[1] - line[3]))
         return math.degrees(orientation)
 
     def checker(self, line_new, groups, min_distance_to_merge, min_angle_to_merge):
@@ -57,12 +59,13 @@ class HoughCluster:
 
         return min(dist1, dist2, dist3, dist4)
 
+
     def merge_lines_pipeline_2(self, lines):
         #Clusterize (group) lines
         groups = []  # all lines groups are here
         # Parameters to play with
         min_distance_to_merge = 30
-        min_angle_to_merge = 30
+        min_angle_to_merge = 10
         # first line will create new group every time
         groups.append([lines[0]])
         # if line is different from existing gropus, create a new group
@@ -87,7 +90,7 @@ class HoughCluster:
             points.append(line[:2])
             points.append(line[2:])
         # if vertical
-        if orientation < 90:
+        if 0 < orientation < 180:
             # sort by y
             points = sorted(points, key=lambda point: point[1])
         else:
@@ -108,7 +111,7 @@ class HoughCluster:
             orientation = self.get_orientation(line_i)
             # if vertical
 
-            if orientation < 90:
+            if 0 < orientation < 180:
                 lines_y.append(line_i)
             else:
                 lines_x.append(line_i)
@@ -128,7 +131,6 @@ class HoughCluster:
                 merged_lines_all.extend(merged_lines)
 
         return np.array(merged_lines_all).reshape((-1, 4))
-
 
 
 
