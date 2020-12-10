@@ -3,8 +3,13 @@ import process_image
 import numpy as np
 import win32api
 import time
+from typing import List
 
-def encoded(key):
+
+def encoded(key: List[str]) -> List[int]:
+    """One hot encodes the keys to prep for neural network.
+
+    """
     if 'A' in key:
         return [1, 0, 0]
     elif 'B' in key:
@@ -13,17 +18,20 @@ def encoded(key):
         return [0, 0, 1]
 
 
-keyList = ["\b"]
-for char in "ABCDEFGHIJKLMNOPQRSTUVWXYZ 123456789,.'£$/\\":
-    keyList.append(char)
+def key_check() -> List[str]:
+    """Checks and return which keys are currently being pressed.
 
-
-def key_check():
+    """
     keys = []
     for key in keyList:
         if win32api.GetAsyncKeyState(ord(key)):
             keys.append(key)
     return keys
+
+
+keyList = ["\b"]
+for char in "ABCDEFGHIJKLMNOPQRSTUVWXYZ 123456789,.'£$/\\":
+    keyList.append(char)
 
 
 if __name__ == '__main__':

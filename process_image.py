@@ -1,9 +1,10 @@
 import cv2
 import numpy as np
 import algorithms
+from typing import List, Tuple
 
 
-def mask_region(screen, vertices):
+def mask_region(screen: np.array, vertices: np.array) -> np.array:
     """Returns region of interest based on given vertices.
 
     Note: screen should be processed already using Canny edge detection.
@@ -19,7 +20,7 @@ def mask_region(screen, vertices):
     return cv2.bitwise_and(screen, mask)
 
 
-def lane_lines(screen):
+def lane_lines(screen: np.array) -> List[Tuple[int, int, int, int]]:
     """Takes in a screen as input and performs a hough transform on the image. The hough
     lines are then drawn on top of the input image.
 
@@ -54,7 +55,7 @@ def lane_lines(screen):
             return [temp[key] for key in temp]
 
 
-def process_image(screen):
+def process_image(screen: np.array) -> np.array:
     """ Takes in the screenshot, applies edge detection and mask and blur
     then returns the new screen.
     """

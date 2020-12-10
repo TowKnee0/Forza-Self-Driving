@@ -76,6 +76,6 @@ def right():
 if __name__ == '__main__':
     # directx scan codes http://www.gamespp.com/directx/directInputKeyboardScanCodes.html
     time.sleep(2)
-    PressKey(0x11)
+    PressKey(0x1E)
     time.sleep(0.1)
-    ReleaseKey(0x11)
+    ReleaseKey(0x1E)
