@@ -116,15 +116,15 @@ def drive_max_dist(lanes: List[Tuple[int, int, int, int]], screen_size: Tuple[in
                 key_press.ReleaseKey(0x20)
                 key_press.ReleaseKey(0x1E)
                 press_status = False
-                press_status = False
 
     elif len(slopes) == 1:
-        if slopes[0] < 0:
-            key_press.PressKey(0x1E)
-            press_status = True
-        else:
-            key_press.PressKey(0x20)
-            press_status = True
+        pass
+        # if slopes[0] < 0:
+        #     key_press.PressKey(0x1E)
+        #     press_status = True
+        # else:
+        #     key_press.PressKey(0x20)
+        #     press_status = True
 
     return press_status
 

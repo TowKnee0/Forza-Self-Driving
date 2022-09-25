@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-import algorithms
+import Algorithms
 from typing import List, Tuple
 
 
@@ -32,7 +32,7 @@ def lane_lines(screen: np.array) -> List[Tuple[int, int, int, int]]:
     # Note: lines is in the form [[[here]], [[here]]...]
 
     if lines_mess is not None:
-        sorter = algorithms.HoughCluster()
+        sorter = Algorithms.HoughCluster()
         lines = sorter.process_lines(lines_mess, screen)
         # temp = lines
         temp = {}

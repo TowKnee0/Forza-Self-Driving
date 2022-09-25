@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-import driving_algorithms
+import Driving_Algorithms
 import screen_grab
 import time
 import process_image
@@ -17,14 +17,14 @@ while True:
     lanes = process_image.lane_lines(processed)
 
     if lanes is not None:
-        pressed = driving_algorithms.drive_max_dist(lanes, (950, 800), pressed)
+        pressed = Driving_Algorithms.drive_max_dist(lanes, (950, 800), pressed)
 
     #     for line in lanes:
     #         cv2.line(processed, (line[0], line[1]), (line[2], line[3]), (255, 0, 0), 5)
     # cv2.imshow('test', processed)
 
-    print(f'Loop took {time.time() - last_time} seconds')
-    last_time = time.time()
+    # print(f'Loop took {time.time() - last_time} seconds')
+    # last_time = time.time()
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         cv2.destroyAllWindows()
