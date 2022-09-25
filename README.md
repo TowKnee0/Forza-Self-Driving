@@ -38,7 +38,10 @@ There are two methodologies used here.
     between a straight road and a turn isn't huge, this usually will not result in large responses from the driving algorithm.
 
 ## Video Demonstration of Current Progress
-[![Demo](http://img.youtube.com/vi/YNhu4X4QFcHM/hqdefault.jpg)](http://www.youtube.com/watch?v=Nhu4X4QFcHM)
+Below is a video showcasing the real time processing of the screen. All driving is done automatically except when manual adjustment needs
+to be made to get car back on road.
+
+[![Demo](https://i.ytimg.com/vi/Nhu4X4QFcHM/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\u0026rs=AOn4CLDP87qNENayviyuhwZgZBBjBJkBNg")](http://www.youtube.com/watch?v=Nhu4X4QFcHM)
 
 ## Future improvements
 1. Pre-processing of image is not always perfect. Will need better methods to remove noise while preserving lane lines.
